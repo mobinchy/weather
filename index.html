@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+
+   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+   <style>
+   	body{background:black;}
+   	.weather-box{
+   		width: 400px;
+   		padding: 40px;
+   		position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+   		color: white;
+   		text-align: center;
+   		border:1px solid;
+
+   	}
+   	.btn{
+   		background: orange;
+   		padding: 15px 25px;
+   		color: white;
+   		border:0;
+   		cursor: pointer;
+   	}
+   	input{
+   		padding: 15px;
+   		border:0;
+   	}
+   </style>
+</head>
+<body>
+
+  <div class="weather-box">
+  	<h4 id="city">city</h4>
+  	<h1 id="country">country</h1>
+  	<h3><span id="tem">00</span><sup>o</sup> C & Time Is <span id="Time"></span></h3>
+
+<input type="text" id="type_city" placeholder="Type Your City Name">
+
+
+  	<button type="button" class="btn">Click</button>
+
+
+  </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+    $(".btn").click(function(){
+         var city_name = $("#type_city").val();
+
+        getvalue(city_name);
+    })
+
+   function getvalue(city_name){
+   	 $.ajax({
+      url:"http://api.apixu.com/v1/current.json?key=1e8f6cda2c0444d582490120170204&q="+city_name,
+      
+
+      dataType:"json",
+      success:function(data){
+        
+        $("#city").text(data.location.name);
+        $("#country").text(data.location.country);
+         $("#tem").text(data.current.temp_c);
+         $("#Time").text(data.current.last_updated);
+      },
+      error:function(){
+
+      }
+    })
+   }
+
+</script>
+
+</body>
+
+
+</html>
+
+
